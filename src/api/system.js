@@ -23,3 +23,11 @@ export const config = {
     })
   }
 }
+
+export const logList = data => {
+  return axios.request({
+    url: 'log_list',
+    data,
+    method: 'post'
+  })
+}

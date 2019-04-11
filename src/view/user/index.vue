@@ -79,7 +79,6 @@ export default {
   },
   data () {
     return {
-      type: 0,
       editModal: {
         state: false,
         title: '添加用户',

@@ -81,6 +81,37 @@ export default [
     ]
   },
   {
+    path: '/system',
+    name: 'system',
+    meta: {
+      icon: 'md-settings',
+      title: '系统管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'config',
+        name: 'config',
+        meta: {
+          icon: 'md-construct',
+          title: '系统设置',
+          access: ['config']
+        },
+        component: () => import('@/view/system/config.vue')
+      },
+      {
+        path: 'log',
+        name: 'log',
+        meta: {
+          icon: 'md-list',
+          title: '操作日志',
+          access: ['log']
+        },
+        component: () => import('@/view/system/log.vue')
+      }
+    ]
+  },
+  {
     path: '/401',
     name: 'error_401',
     meta: {
