@@ -8,10 +8,9 @@ export const getHomeCount = () => {
 }
 
 export const config = {
-  list: data => {
+  list: () => {
     return axios.request({
       url: 'get_config',
-      data,
       method: 'post'
     })
   },
