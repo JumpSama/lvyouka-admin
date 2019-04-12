@@ -81,6 +81,47 @@ export default [
     ]
   },
   {
+    path: '/member',
+    name: 'member',
+    meta: {
+      icon: 'md-people',
+      title: '会员管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'member_list',
+        name: 'member_list',
+        meta: {
+          icon: 'md-list',
+          title: '会员列表',
+          access: ['member']
+        },
+        component: () => import('@/view/member/index.vue')
+      },
+      {
+        path: 'member_approve',
+        name: 'member_approve',
+        meta: {
+          icon: 'md-checkmark-circle',
+          title: '虚拟卡审核',
+          access: ['temp_member']
+        },
+        component: () => import('@/view/member/approve.vue')
+      },
+      {
+        path: 'card_list',
+        name: 'card_list',
+        meta: {
+          icon: 'md-card',
+          title: '卡片管理',
+          access: ['card']
+        },
+        component: () => import('@/view/member/card.vue')
+      }
+    ]
+  },
+  {
     path: '/system',
     name: 'system',
     meta: {
