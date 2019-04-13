@@ -66,3 +66,32 @@ export const memberFilters = {
     return statusMap[status] ? statusMap[status] : {}
   }
 }
+
+export const shopFilters = {
+  commodityStatusFilter (status) {
+    const statusMap = {
+      0: {
+        text: '下架',
+        color: '#ff9900'
+      },
+      1: {
+        text: '上架',
+        color: '#19be6b'
+      }
+    }
+    return statusMap[status] ? statusMap[status] : {}
+  },
+  orderStatusFilter (status) {
+    const statusMap = {
+      0: {
+        text: '待领取',
+        color: '#ff9900'
+      },
+      1: {
+        text: '已完成',
+        color: '#19be6b'
+      }
+    }
+    return statusMap[status] ? statusMap[status] : {}
+  }
+}

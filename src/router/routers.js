@@ -122,6 +122,37 @@ export default [
     ]
   },
   {
+    path: '/shop',
+    name: 'shop',
+    meta: {
+      icon: 'md-star',
+      title: '积分商城'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'commodity',
+        name: 'commodity',
+        meta: {
+          icon: 'md-pricetag',
+          title: '商品管理',
+          access: ['commodity']
+        },
+        component: () => import('@/view/shop/commodity.vue')
+      },
+      {
+        path: 'order',
+        name: 'order',
+        meta: {
+          icon: 'md-appstore',
+          title: '订单管理',
+          access: ['order']
+        },
+        component: () => import('@/view/shop/order.vue')
+      }
+    ]
+  },
+  {
     path: '/system',
     name: 'system',
     meta: {
