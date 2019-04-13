@@ -200,10 +200,7 @@ export default {
     },
     // modal状态切换
     editModalVisibleChange (state) {
-      if (!state) {
-        this.$refs.editComponents.$refs.uploadImages.clearImages()
-        this.$refs.editComponents.$refs.formValidate.resetFields()
-      }
+      if (!state) this.$refs.editComponents.$refs.formValidate.resetFields()
     },
     delHandle (id) {
       this.$Modal.confirm({
