@@ -18,7 +18,7 @@
       <FormItem label="商品主图" prop="image">
         <uploadImage v-model="params.image" :dir="dir"/>
       </FormItem>
-      <FormItem label="商品图片" prop="banner">
+      <FormItem label="商品图片" prop="banner" v-if="renderUpload">
         <uploadImages ref="uploadImages" v-model="params.banner" :dir="dir"></uploadImages>
       </FormItem>
       <FormItem label="商品详情" prop="content" v-if="renderEditor">
@@ -63,6 +63,7 @@ export default {
         { value: 1, name: '上架' },
         { value: 0, name: '下架' }
       ],
+      renderUpload: false,
       renderEditor: false,
       ruleValidate: {
         status: [{ required: true, message: '请选择商品状态' }],
@@ -93,8 +94,10 @@ export default {
   },
   watch: {
     'params': function () {
+      this.renderUpload = false
       this.renderEditor = false
       this.$nextTick(() => {
+        this.renderUpload = true
         this.renderEditor = true
       })
     }
