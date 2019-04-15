@@ -90,16 +90,14 @@ export default {
           this.$emit('callback')
         } else this.$Message.error(res.data.msg)
       })
-    }
-  },
-  watch: {
-    'params': function () {
+    },
+    initEdit () {
+      this.renderUpload = true
+      this.renderEditor = true
+    },
+    resetEdit () {
       this.renderUpload = false
       this.renderEditor = false
-      this.$nextTick(() => {
-        this.renderUpload = true
-        this.renderEditor = true
-      })
     }
   }
 }

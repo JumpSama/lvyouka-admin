@@ -200,7 +200,12 @@ export default {
     },
     // modal状态切换
     editModalVisibleChange (state) {
-      if (!state) this.$refs.editComponents.$refs.formValidate.resetFields()
+      if (!state) {
+        this.$refs.editComponents.resetEdit()
+        this.$refs.editComponents.$refs.formValidate.resetFields()
+      } else {
+        this.$refs.editComponents.initEdit()
+      }
     },
     delHandle (id) {
       this.$Modal.confirm({
