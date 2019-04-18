@@ -6,7 +6,7 @@
   <div class="login-body">
     <Card title="欢迎登录" class="login-card" :bordered="false">
       <div class="login-title uk-text-center">
-        <h2 style="margin-top:10px; color:#1E7FB8">文化旅游卡管理系统</h2>
+        <h2 style="margin-top:10px; color:#1E7FB8">文旅惠民卡管理系统</h2>
       </div>
       <div class="login-form" style="padding:20px">
         <Form

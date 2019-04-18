@@ -180,7 +180,13 @@ export default {
     },
     operateHandle (data) {
       approve.operate(data).then(res => {
-        console.log(res)
+        let d = res.data
+        if (d && d.code === 200) {
+          this.$Message.success(d.msg)
+          this.searchHandle()
+        } else {
+          this.$Message.error(d.msg)
+        }
       })
     },
     showUser (identity, memberId) {
