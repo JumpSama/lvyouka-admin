@@ -124,3 +124,45 @@ export const user = {
     })
   }
 }
+
+// 场所相关路由
+export const site = {
+  list: data => {
+    return axios.request({
+      url: 'site_list',
+      data,
+      method: 'post'
+    })
+  },
+  all: () => {
+    return axios.request({
+      url: 'site_all',
+      method: 'post'
+    })
+  },
+  store: data => {
+    return axios.request({
+      url: 'site_store',
+      data,
+      method: 'post'
+    })
+  },
+  detail: id => {
+    return axios.request({
+      url: 'site_detail',
+      data: {
+        id
+      },
+      method: 'post'
+    })
+  },
+  del: id => {
+    return axios.request({
+      url: 'site_del',
+      data: {
+        id
+      },
+      method: 'post'
+    })
+  }
+}

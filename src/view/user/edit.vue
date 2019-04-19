@@ -12,13 +12,18 @@
           <Option v-for="(item,i) in roles" :value="+i" :key="i">{{ item }}</Option>
         </Select>
       </FormItem>
+      <FormItem label="所属场所" prop="site">
+        <Select v-model="params.site">
+          <Option v-for="(item,i) in sites" :value="+i" :key="i">{{ item }}</Option>
+        </Select>
+      </FormItem>
       <p style="padding-left: 80px;">新添加用户默认密码为123456</p>
     </Form>
   </div>
 </template>
 
 <script>
-import { role, user } from '@/api/user'
+import { role, user, site } from '@/api/user'
 export default {
   name: 'add',
   props: {
@@ -35,6 +40,7 @@ export default {
     }
     return {
       roles: [],
+      sites: [],
       ruleValidate: {
         name: [{ required: true, message: '请填写用户名称', trigger: 'blur' }],
         account: [{ required: true, validator: validateAccount, trigger: 'blur' }],
@@ -55,6 +61,12 @@ export default {
         if (d && d.code === 200) this.roles = d.data
       })
     },
+    getSite () {
+      site.all().then(res => {
+        let d = res.data
+        if (d && d.code === 200) this.sites = d.data
+      })
+    },
     // 添加
     store () {
       user.store(this.params).then(res => {
@@ -70,6 +82,7 @@ export default {
   },
   mounted () {
     this.getRole()
+    this.getSite()
   }
 }
 </script>

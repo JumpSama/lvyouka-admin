@@ -77,6 +77,16 @@ export default [
           access: ['role']
         },
         component: () => import('@/view/user/role.vue')
+      },
+      {
+        path: 'site_list',
+        name: 'site_list',
+        meta: {
+          icon: 'md-apps',
+          title: '场所管理',
+          access: ['site']
+        },
+        component: () => import('@/view/user/site.vue')
       }
     ]
   },
@@ -118,6 +128,16 @@ export default [
           access: ['card']
         },
         component: () => import('@/view/member/card.vue')
+      },
+      {
+        path: 'use_card',
+        name: 'use_card',
+        meta: {
+          icon: 'md-checkmark-circle-outline',
+          title: '刷卡',
+          access: ['use_card']
+        },
+        component: () => import('@/view/member/use_card.vue')
       }
     ]
   },
