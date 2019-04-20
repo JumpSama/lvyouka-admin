@@ -54,7 +54,8 @@ export default [
     name: 'user',
     meta: {
       icon: 'md-person',
-      title: '用户管理'
+      title: '用户管理',
+      access: ['user', 'role', 'site']
     },
     component: Main,
     children: [
@@ -95,7 +96,8 @@ export default [
     name: 'member',
     meta: {
       icon: 'md-people',
-      title: '会员管理'
+      title: '会员管理',
+      access: ['member', 'temp_member', 'card', 'use_card']
     },
     component: Main,
     children: [
@@ -146,7 +148,8 @@ export default [
     name: 'shop',
     meta: {
       icon: 'md-star',
-      title: '积分商城'
+      title: '积分商城',
+      access: ['commodity', 'order']
     },
     component: Main,
     children: [
@@ -177,7 +180,8 @@ export default [
     name: 'system',
     meta: {
       icon: 'md-settings',
-      title: '系统管理'
+      title: '系统管理',
+      access: ['config', 'log']
     },
     component: Main,
     children: [

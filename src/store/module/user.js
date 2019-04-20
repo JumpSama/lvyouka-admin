@@ -3,7 +3,7 @@ import {
   logout,
   getUserInfo
 } from '@/api/user'
-import { setToken, getToken } from '@/libs/util'
+import { setToken, getToken, setTagNavListInLocalstorage } from '@/libs/util'
 
 export default {
   state: {
@@ -63,6 +63,7 @@ export default {
         logout(state.token).then(() => {
           commit('setToken', '')
           commit('setAccess', [])
+          setTagNavListInLocalstorage([])
           resolve()
         }).catch(err => {
           reject(err)
