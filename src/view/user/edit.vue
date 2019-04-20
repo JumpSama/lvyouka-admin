@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     validateForm () {
-      console.log(this.params)
       this.$refs['formValidate'].validate(valid => {
         if (valid) this.store()
       })

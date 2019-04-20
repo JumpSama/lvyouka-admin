@@ -20,11 +20,27 @@
         </Select>
       </i-col>
       <Button type="primary" size="large" icon="ios-search" @click="searchHandle">搜索</Button>
+      <Button style="margin-left:10px;" type="success" size="large" icon="md-card" @click="openModal('new')">开卡</Button>
+      <Button style="margin-left:10px;" type="warning" size="large" icon="md-person" @click="openModal('bind')">绑卡</Button>
+      <Button style="margin-left:10px;" type="error" size="large" icon="md-unlock" @click="openModal('lost')">挂失</Button>
     </Row>
     <br>
     <Table ref="tableInfo" stripe :columns="columns" :data="data"></Table>
     <br>
     <Page :total="page.total" :current.sync="page.current" show-total @on-change="pageChange"/>
+    <Modal
+      v-model="editModal.state"
+      @on-visible-change="editModalVisibleChange"
+      :title="editModal.title"
+    >
+      <bindCard ref="editComponents" :type="editModal.type" @callback="editModalCallBack"></bindCard>
+      <div slot="footer">
+        <Row :gutter="16" type="flex" justify="end">
+          <Button @click="editModalCancelHandle">关闭</Button>
+          <Button type="primary" @click="editModalSaveHandle">确定</Button>
+        </Row>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -32,15 +48,22 @@
 import { member } from '@/api/member'
 import { memberFilters } from '@/libs/filters'
 import expandRow from './expand.vue'
+import bindCard from './bindCard.vue'
 export default {
   filters: {
     ...memberFilters
   },
   components: {
-    expandRow
+    expandRow,
+    bindCard
   },
   data () {
     return {
+      editModal: {
+        state: false,
+        title: '会员开卡',
+        type: 'new'
+      },
       params: {
         offset: 0,
         limit: 10
@@ -125,6 +148,32 @@ export default {
         this.data = data.list
         this.page.total = parseInt(data.total)
       })
+    },
+    openModal (type) {
+      this.editModal = {
+        type,
+        state: true,
+        title: type === 'new' ? '会员开卡' : type === 'bind' ? '会员绑卡' : '会员挂失'
+      }
+    },
+    // 关闭modal
+    editModalCancelHandle () {
+      this.editModal.state = false
+    },
+    // 保存修改
+    editModalSaveHandle () {
+      this.$refs.editComponents.validateForm()
+    },
+    // 保存回调
+    editModalCallBack () {
+      this.editModalCancelHandle()
+    },
+    // modal状态切换
+    editModalVisibleChange (state) {
+      if (!state) {
+        this.$refs.editComponents.resetData()
+        this.getList()
+      }
     }
   },
   watch: {

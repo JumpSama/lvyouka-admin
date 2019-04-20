@@ -139,7 +139,7 @@ export default [
           title: '刷卡',
           access: ['use_card']
         },
-        component: () => import('@/view/member/use_card.vue')
+        component: () => import('@/view/member/useCard.vue')
       }
     ]
   },

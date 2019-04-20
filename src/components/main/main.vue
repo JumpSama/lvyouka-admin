@@ -12,7 +12,7 @@
     <Layout>
       <Header class="header-con">
         <header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
-          <user :user-avator="userAvator"/>
+          <user :user-avator="userAvator" :user-name="userName"/>
           <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local"/>
           <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
         </header-bar>
@@ -75,6 +75,9 @@ export default {
     },
     tagRouter () {
       return this.$store.state.app.tagRouter
+    },
+    userName () {
+      return this.$store.state.user.userName
     },
     userAvator () {
       return this.$store.state.user.avatorImgPath

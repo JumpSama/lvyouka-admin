@@ -3,7 +3,8 @@
     <div class="user-avator-dropdown">
       <Dropdown @on-click="handleClick">
         <Badge>
-          <Avatar :src="avatar"/>
+          <Avatar :src="avatar"/>&nbsp;
+          <span>{{userName}}</span>
         </Badge>
         <Icon :size="18" type="md-arrow-dropdown"></Icon>
         <DropdownMenu slot="list">
@@ -35,6 +36,10 @@ export default {
     password
   },
   props: {
+    userName: {
+      type: String,
+      default: ''
+    },
     userAvator: {
       type: String,
       default: ''

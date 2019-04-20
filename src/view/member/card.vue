@@ -30,23 +30,45 @@
         />
       </i-col>
       <Button type="primary" size="large" icon="ios-search" @click="searchHandle">搜索</Button>
+      <Button style="margin-left:10px;" type="success" size="large" icon="md-add" @click="openModal">卡片录入</Button>
     </Row>
     <br>
     <Table ref="tableUser" stripe :columns="columns" :data="data"></Table>
     <br>
     <Page :total="page.total" :current.sync="page.current" show-total @on-change="pageChange"/>
+    <Modal
+      v-model="editModal.state"
+      @on-visible-change="editModalVisibleChange"
+      :title="editModal.title"
+    >
+      <newCard ref="editComponents"></newCard>
+      <div slot="footer">
+        <Row :gutter="16" type="flex" justify="end">
+          <Button @click="editModalCancelHandle">关闭</Button>
+          <Button type="primary" @click="editModalSaveHandle">读卡</Button>
+        </Row>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
+import newCard from './newCard.vue'
 import { cardFilters } from '@/libs/filters'
 import { card } from '@/api/member'
 export default {
+  components: {
+    newCard
+  },
   filters: {
     ...cardFilters
   },
   data () {
     return {
+      editModal: {
+        state: false,
+        title: '卡片录入'
+      },
       params: {
         offset: 0,
         limit: 10
@@ -62,6 +84,10 @@ export default {
         current: 1
       },
       columns: [
+        {
+          title: 'ID',
+          key: 'id'
+        },
         {
           title: '卡号',
           key: 'number'
@@ -109,6 +135,24 @@ export default {
         this.data = data.list
         this.page.total = parseInt(data.total)
       })
+    },
+    openModal () {
+      this.editModal.state = true
+    },
+    // 关闭modal
+    editModalCancelHandle () {
+      this.editModal.state = false
+    },
+    // 保存修改
+    editModalSaveHandle () {
+      this.$refs.editComponents.readCard()
+    },
+    // modal状态切换
+    editModalVisibleChange (state) {
+      if (!state) {
+        this.$refs.editComponents.emptyCard()
+        this.getList()
+      }
     }
   },
   watch: {
