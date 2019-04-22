@@ -2,8 +2,8 @@
   <div>
     <Row>
       <i-col :span="12">
-        <Button style="margin-left:20px;" type="primary" @click="readCard" v-if="type === 'card'">读卡</Button>
-        <Input style="margin-left:20px;" autofocus type="text" v-model="params.qrcode" v-else />
+        <Input ref="qrinput" style="margin-left:20px;" type="text" v-model="params.qrcode" placeholder="请选中此框后扫描二维码" autofocus v-if="type === 'scan'" />
+        <Button style="margin-left:20px;" type="primary" @click="readCard" v-else>读卡</Button>
       </i-col>
     </Row>
     <br>
@@ -33,6 +33,7 @@ export default {
   },
   data () {
     return {
+      loading: false,
       items: {},
       info: {
         name: '',
@@ -46,9 +47,25 @@ export default {
       }
     }
   },
+  watch: {
+    'type' () {
+      if (this.type === 'scan') {
+        this.$nextTick(() => {
+          this.$refs.qrinput.focus()
+        })
+      }
+    },
+    'params': {
+      deep: true,
+      handler () {
+        if (this.params.qrcode) this.getLog()
+      }
+    }
+  },
   methods: {
     // 重置
     resetData () {
+      this.loading = false
       this.items = {}
       this.info = {
         name: '',
@@ -89,6 +106,8 @@ export default {
     },
     // 使用记录
     getLog () {
+      if (this.loading) return
+      this.loading = true
       card.detail(this.params).then(res => {
         const d = res.data
         if (d && d.code === 200) {
@@ -121,6 +140,7 @@ export default {
         } else {
           this.$Message.error(d.msg || '获取会员信息失败')
         }
+        this.loading = false
       })
     },
     // 刷卡

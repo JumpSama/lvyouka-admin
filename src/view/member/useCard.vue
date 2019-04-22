@@ -60,11 +60,12 @@ export default {
       this.editModal = {
         type,
         state: true,
-        title: type === 1 ? '刷卡' : '扫描'
+        title: type === 'card' ? '刷卡' : '扫描'
       }
     },
     // 关闭modal
     editModalCancelHandle () {
+      this.editModal.type = ''
       this.editModal.state = false
     },
     // 保存修改
