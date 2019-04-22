@@ -23,6 +23,7 @@
       <Button style="margin-left:10px;" type="success" size="large" icon="md-card" @click="openModal('new')">开卡</Button>
       <Button style="margin-left:10px;" type="warning" size="large" icon="md-person" @click="openModal('bind')">绑卡</Button>
       <Button style="margin-left:10px;" type="error" size="large" icon="md-unlock" @click="openModal('lost')">挂失</Button>
+      <Button style="margin-left:10px;" type="success" size="large" icon="md-refresh" @click="openModal('renew')">续费</Button>
     </Row>
     <br>
     <Table ref="tableInfo" stripe :columns="columns" :data="data"></Table>
@@ -131,7 +132,13 @@ export default {
           key: 'number'
         }
       ],
-      data: []
+      data: [],
+      typeObj: {
+        'new': '会员开卡',
+        'bind': '会员绑卡',
+        'lost': '会员挂失',
+        'renew': '会员续费'
+      }
     }
   },
   methods: {
@@ -153,7 +160,7 @@ export default {
       this.editModal = {
         type,
         state: true,
-        title: type === 'new' ? '会员开卡' : type === 'bind' ? '会员绑卡' : '会员挂失'
+        title: this.typeObj[type]
       }
     },
     // 关闭modal

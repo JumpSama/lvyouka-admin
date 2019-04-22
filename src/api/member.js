@@ -51,6 +51,15 @@ export const member = {
       method: 'post'
     })
   },
+  detailByCard: card_number => {
+    return axios.request({
+      url: 'member_detail_by_card',
+      data: {
+        card_number
+      },
+      method: 'post'
+    })
+  },
   storeNew: data => {
     return axios.request({
       url: 'card_to_member',
@@ -68,6 +77,13 @@ export const member = {
   storeChange: data => {
     return axios.request({
       url: 'card_change_member',
+      data,
+      method: 'post'
+    })
+  },
+  storeRenew: data => {
+    return axios.request({
+      url: 'card_renew_member',
       data,
       method: 'post'
     })

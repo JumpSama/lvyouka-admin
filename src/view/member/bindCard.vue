@@ -11,7 +11,8 @@
           </i-col>
         </Row>
       </FormItem>
-      <FormItem label="姓名：">
+      <FormItem label="姓名：" v-if="type === 'renew'">{{info.name}}</FormItem>
+      <FormItem label="姓名：" v-else>
         <Row>
           <i-col :span="4">
             <Button type="primary" @click="readId">读身份证</Button>
@@ -26,6 +27,7 @@
       <FormItem label="头像：" prop="avatar">
         <img v-if="info.avatar" :src="info.avatar">
       </FormItem>
+      <FormItem label="过期时间：" v-if="type === 'renew'">{{info.overdue}} {{info.overdue ? (info.renew ? '(可以续费)' : '(暂无法续费)') : ''}}</FormItem>
       <FormItem v-if="type == 'new'" label="手机号：" prop="phone">
         <Input type="text" v-model="info.phone"/>
       </FormItem>
@@ -39,7 +41,7 @@
           </i-col>
         </Row>
       </FormItem>
-      <FormItem v-if="type == 'new'" label="年费：" prop="pay">
+      <FormItem v-if="type == 'new' || type == 'renew'" label="年费：" prop="pay">
         <i-switch v-model="info.pay" size="large">
           <span slot="open">已付</span>
           <span slot="close">未付</span>
@@ -129,9 +131,30 @@ export default {
         Object.assign(this.info, {
           card_number
         })
+        if (this.type === 'renew') this.getInfo()
       } else {
         this.$Message.error('读取失败')
       }
+    },
+    // 获取会员信息
+    getInfo () {
+      member.detailByCard(this.info.card_number).then(res => {
+        const d = res.data
+        if (d && d.code === 200) {
+          const data = d.data
+          const tempData = {
+            name: data.name,
+            sex: data.sex === 1 ? '男' : '女',
+            avatar: data.avatar,
+            identity: data.identity,
+            overdue: data.overdue,
+            renew: data.renew
+          }
+          Object.assign(this.info, tempData)
+        } else {
+          this.$Message.error(d.msg || '获取会员信息失败')
+        }
+      })
     },
     // 读身份证
     readId () {
@@ -156,9 +179,19 @@ export default {
         this.$Message.error('请刷卡')
         return
       }
-      if (!this.info.identity) {
+      if (this.type !== 'renew' && !this.info.identity) {
         this.$Message.error('请刷身份证')
         return
+      }
+      if (this.type === 'renew') {
+        if (!this.info.renew) {
+          this.$Message.error('暂无法续费')
+          return
+        }
+        if (!this.info.pay) {
+          this.$Message.error('请确认年费已支付！')
+          return
+        }
       }
       if (this.type === 'new') {
         if (!this.info.phone) {
@@ -176,7 +209,8 @@ export default {
       }
       if (this.type === 'new') this.storeNew()
       else if (this.type === 'bind') this.storeBind()
-      else this.storeChange()
+      else if (this.type === 'lost') this.storeChange()
+      else this.storeRenew()
     },
     // 开卡
     storeNew () {
@@ -220,6 +254,20 @@ export default {
           this.$emit('callback')
         } else {
           this.$Message.error(d.msg || '新卡绑定失败')
+        }
+      })
+    },
+    // 续费
+    storeRenew () {
+      member.storeRenew({
+        card_number: this.info.card_number
+      }).then(res => {
+        let d = res.data
+        if (d && d.code === 200) {
+          this.$Message.success('续费成功')
+          this.$emit('callback')
+        } else {
+          this.$Message.error(d.msg || '续费失败')
         }
       })
     }
