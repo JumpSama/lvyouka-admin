@@ -98,8 +98,8 @@ export default {
       }
       this.countText = this.countTime
       this.countTime--
-      setTimeout(() => {
-        this.countObj = this.countDown()
+      this.countObj = setTimeout(() => {
+        this.countDown()
       }, 1000)
     },
     // 验证码

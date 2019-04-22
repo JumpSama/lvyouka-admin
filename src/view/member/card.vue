@@ -113,7 +113,7 @@ export default {
           render: (h, params) => {
             return h(
               'p',
-              params.row.status === 1 ? params.row.member_name + '(ID:' + params.row.member_id + ')' : '未关联'
+              params.row.member_name ? params.row.member_name + '(ID:' + params.row.member_id + ')' : '未关联'
             )
           }
         }

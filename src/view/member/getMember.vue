@@ -109,6 +109,7 @@ export default {
       if (this.loading) return
       this.loading = true
       card.detail(this.params).then(res => {
+        this.loading = false
         const d = res.data
         if (d && d.code === 200) {
           const data = d.data
@@ -139,8 +140,8 @@ export default {
           this.items = tempData
         } else {
           this.$Message.error(d.msg || '获取会员信息失败')
+          this.resetData()
         }
-        this.loading = false
       })
     },
     // 刷卡
