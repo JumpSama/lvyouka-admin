@@ -96,6 +96,24 @@ export const member = {
       },
       method: 'post'
     })
+  },
+  memberDisable: id => {
+    return axios.request({
+      url: 'member_disable',
+      data: {
+        id
+      },
+      method: 'post'
+    })
+  },
+  memberEnable: id => {
+    return axios.request({
+      url: 'member_enable',
+      data: {
+        id
+      },
+      method: 'post'
+    })
   }
 }
 

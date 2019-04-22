@@ -2,6 +2,9 @@
   <div>
     <Row :gutter="24" type="flex" justify="start">
       <i-col span="4">
+        <Input clearable type="text" v-model="paramsExtend.order_id" size="large" placeholder="订单号"/>
+      </i-col>
+      <i-col span="4">
         <Input clearable type="text" v-model="paramsExtend.name" size="large" placeholder="商品名称"/>
       </i-col>
       <i-col span="4">
@@ -51,7 +54,8 @@ export default {
       paramsExtend: {
         name: '',
         status: '',
-        keyword: ''
+        keyword: '',
+        order_id: ''
       },
       page: {
         total: 0,
@@ -59,8 +63,8 @@ export default {
       },
       columns: [
         {
-          title: 'ID',
-          key: 'id'
+          title: '订单号',
+          key: 'order_id'
         },
         {
           title: '商品名称',

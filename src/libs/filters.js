@@ -28,6 +28,10 @@ export const cardFilters = {
       2: {
         text: '已挂失',
         color: '#a9a9a9'
+      },
+      3: {
+        text: '已冻结',
+        color: '#a9a9a9'
       }
     }
     return statusMap[status] ? statusMap[status] : {}
@@ -83,11 +87,11 @@ export const shopFilters = {
   },
   orderStatusFilter (status) {
     const statusMap = {
-      0: {
+      1: {
         text: '待领取',
         color: '#ff9900'
       },
-      1: {
+      2: {
         text: '已完成',
         color: '#19be6b'
       }

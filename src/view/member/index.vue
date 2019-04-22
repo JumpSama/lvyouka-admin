@@ -22,17 +22,41 @@
       <Button type="primary" size="large" icon="ios-search" @click="searchHandle">搜索</Button>
       <Button style="margin-left:10px;" type="success" size="large" icon="md-card" @click="openModal('new')">开卡</Button>
       <Button style="margin-left:10px;" type="warning" size="large" icon="md-person" @click="openModal('bind')">绑卡</Button>
-      <Button style="margin-left:10px;" type="error" size="large" icon="md-unlock" @click="openModal('lost')">挂失</Button>
+      <Button style="margin-left:10px;" type="error" size="large" icon="md-unlock" @click="openModal('lost')">挂失补卡</Button>
       <Button style="margin-left:10px;" type="success" size="large" icon="md-refresh" @click="openModal('renew')">续费</Button>
     </Row>
     <br>
-    <Table ref="tableInfo" stripe :columns="columns" :data="data"></Table>
+    <Table ref="tableInfo" stripe :columns="columns" :data="data">
+      <!-- 操作 -->
+      <template slot="action" slot-scope="props">
+        <Poptip
+          confirm
+          title="是否冻结该用户的实体卡?"
+          @on-ok="disableCard(props.id)"
+          transfer
+          style="margin-right: 5px;"
+          v-if="props.card_status == 1"
+        >
+          <Button type="error" size="small">冻结</Button>
+        </Poptip>
+        <Poptip
+          confirm
+          title="是否解冻该用户的实体卡?"
+          @on-ok="enableCard(props.id)"
+          transfer
+          v-if="props.card_status == 3"
+        >
+          <Button type="success" size="small">解冻</Button>
+        </Poptip>
+      </template>
+    </Table>
     <br>
     <Page :total="page.total" :current.sync="page.current" show-total @on-change="pageChange"/>
     <Modal
       v-model="editModal.state"
       @on-visible-change="editModalVisibleChange"
       :title="editModal.title"
+      :mask-closable="false"
     >
       <bindCard ref="editComponents" :type="editModal.type" @callback="editModalCallBack"></bindCard>
       <div slot="footer">
@@ -130,13 +154,25 @@ export default {
         {
           title: '卡号',
           key: 'number'
+        },
+        {
+          title: '操作',
+          key: 'action',
+          align: 'center',
+          width: 100,
+          render: (h, params) => {
+            return ('div', this.$refs.tableInfo.$scopedSlots.action({
+              id: params.row.id,
+              card_status: params.row.card_status
+            }))
+          }
         }
       ],
       data: [],
       typeObj: {
         'new': '会员开卡',
         'bind': '会员绑卡',
-        'lost': '会员挂失',
+        'lost': '会员补卡（旧卡无法再使用）',
         'renew': '会员续费'
       }
     }
@@ -181,6 +217,28 @@ export default {
         this.$refs.editComponents.resetData()
         this.getList()
       }
+    },
+    disableCard (id) {
+      member.memberDisable(id).then(res => {
+        const d = res.data
+        if (d && d.code === 200) {
+          this.$Message.success(d.msg)
+          this.getList()
+        } else {
+          this.$Message.error(d.msg || '操作失败')
+        }
+      })
+    },
+    enableCard (id) {
+      member.memberEnable(id).then(res => {
+        const d = res.data
+        if (d && d.code === 200) {
+          this.$Message.success(d.msg)
+          this.getList()
+        } else {
+          this.$Message.error(d.msg || '操作失败')
+        }
+      })
     }
   },
   watch: {

@@ -58,7 +58,7 @@ export default {
     'params': {
       deep: true,
       handler () {
-        if (this.params.qrcode) this.getLog()
+        if (this.params.qrcode.length === 31) this.getLog()
       }
     }
   },
