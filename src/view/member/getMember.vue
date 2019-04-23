@@ -2,7 +2,7 @@
   <div>
     <Row>
       <i-col :span="12">
-        <Input ref="qrinput" style="margin-left:20px;" type="text" v-model="params.qrcode" placeholder="请选中此框后扫描二维码" autofocus v-if="type === 'scan'" />
+        <Input ref="qrinput" element-id="qrcode" style="margin-left:20px;display:none;" type="text" v-model="params.qrcode" placeholder="请选中此框后扫描二维码" autofocus v-if="type === 'scan'" />
         <Button style="margin-left:20px;" type="primary" @click="readCard" v-else>读卡</Button>
       </i-col>
     </Row>
@@ -58,6 +58,7 @@ export default {
     'params': {
       deep: true,
       handler () {
+        console.log(this.params)
         if (this.params.qrcode.length === 31) this.getLog()
       }
     }
