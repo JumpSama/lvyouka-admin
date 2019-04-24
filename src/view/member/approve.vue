@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="spin-container">
     <Row :gutter="24" type="flex" justify="start">
       <i-col span="3">
         <Input clearable type="text" v-model="paramsExtend.name" size="large" placeholder="姓名"/>
@@ -55,6 +55,7 @@
     <Drawer placement="right" width="600" v-model="detailDrawer.state">
       <memberDetail :detail="detailDrawer.detail" />
     </Drawer>
+    <Spin size="large" fix v-if="spinShow"></Spin>
   </div>
 </template>
 
@@ -73,6 +74,7 @@ export default {
   },
   data () {
     return {
+      spinShow: false,
       detailDrawer: {
         detail: {},
         state: false
@@ -179,7 +181,9 @@ export default {
       })
     },
     operateHandle (data) {
+      this.spinShow = true
       approve.operate(data).then(res => {
+        this.spinShow = false
         let d = res.data
         if (d && d.code === 200) {
           this.$Message.success(d.msg)
@@ -216,3 +220,11 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+.spin-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+</style>

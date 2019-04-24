@@ -145,7 +145,7 @@ export default {
     },
     // 保存修改
     editModalSaveHandle () {
-      this.$refs.editComponents.readCard()
+      this.$refs.editComponents.readStart()
     },
     // modal状态切换
     editModalVisibleChange (state) {

@@ -10,6 +10,8 @@
     <Form ref="formValidate" :label-width="80" :model="info">
       <FormItem label="姓名：">{{info.name}}</FormItem>
       <FormItem label="手机号：">{{info.phone}}</FormItem>
+      <FormItem label="头像：" v-if="info.avatar" ><img :src="info.avatar"></FormItem>
+      <FormItem label="身份证：" v-if="info.identity_front" ><img style="width:200px;" :src="info.identity_front"></FormItem>
       <FormItem label="项目：">
         <RadioGroup vertical v-model="info.item_id">
           <Radio v-for="(item,i) in items" :key="i" :label="i" :disabled="item.count >= item.item_count">
@@ -120,6 +122,8 @@ export default {
             phone: detail.phone,
             member_id: detail.id
           }
+          if (detail.avatar) this.info.avatar = detail.avatar
+          if (detail.identity_front) this.info.identity_front = detail.identity_front
           const items = data.items
           const counts = data.counts
           let tempData = {}
