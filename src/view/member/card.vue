@@ -45,7 +45,7 @@
       <div slot="footer">
         <Row :gutter="16" type="flex" justify="end">
           <Button @click="editModalCancelHandle">关闭</Button>
-          <Button type="primary" @click="editModalSaveHandle">读卡</Button>
+          <Button type="primary" @click="editModalSaveHandle" :disabled="read.state">{{read.text}}</Button>
         </Row>
       </div>
     </Modal>
@@ -65,6 +65,10 @@ export default {
   },
   data () {
     return {
+      read: {
+        state: false,
+        text: '读卡'
+      },
       editModal: {
         state: false,
         title: '卡片录入'
@@ -145,12 +149,20 @@ export default {
     },
     // 保存修改
     editModalSaveHandle () {
+      this.read = {
+        state: true,
+        text: '读卡中...'
+      }
       this.$refs.editComponents.readStart()
     },
     // modal状态切换
     editModalVisibleChange (state) {
       if (!state) {
         this.$refs.editComponents.emptyCard()
+        this.read = {
+          state: false,
+          text: '读卡'
+        }
         this.getList()
       }
     }

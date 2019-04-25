@@ -29,6 +29,8 @@ export default {
         if (cardNumber !== this.cardNumber) {
           this.cardNumber = cardNumber
           this.add(cardNumber)
+        } else {
+          this.showText = '请换卡或者关闭'
         }
       } else {
         this.showText = '未读取到卡片'
