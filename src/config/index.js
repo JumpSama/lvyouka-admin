@@ -18,7 +18,7 @@ export default {
    */
   baseUrl: {
     dev: 'http://lvyouka.local/api/admin/',
-    pro: 'http://wlhm.inpor.com/api/admin/'
+    pro: 'http://wlhm.zibenhuoban.com/api/admin/'
   },
   /**
    * @description 默认打开的首页的路由name值，默认为home

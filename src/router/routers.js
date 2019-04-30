@@ -208,6 +208,68 @@ export default [
     ]
   },
   {
+    path: '/stats',
+    name: 'stats',
+    meta: {
+      icon: 'md-stats',
+      title: '统计',
+      access: ['card_stats', 'wechat_stats', 'total_stats', 'used_list', 'used_stats']
+    },
+    component: Main,
+    children: [
+      {
+        path: 'card_stats',
+        name: 'card_stats',
+        meta: {
+          icon: 'md-card',
+          title: '线下开卡续费详情',
+          access: ['card_stats']
+        },
+        component: () => import('@/view/stats/card.vue')
+      },
+      {
+        path: 'wechat_stats',
+        name: 'wechat_stats',
+        meta: {
+          icon: 'ios-at-outline',
+          title: '线上开卡续费详情',
+          access: ['wechat_stats']
+        },
+        component: () => import('@/view/stats/wechat.vue')
+      },
+      {
+        path: 'total_stats',
+        name: 'total_stats',
+        meta: {
+          icon: 'md-stats',
+          title: '开卡续费统计',
+          access: ['total_stats']
+        },
+        component: () => import('@/view/stats/total.vue')
+      },
+      {
+        path: 'used_list',
+        name: 'used_list',
+        meta: {
+          icon: 'md-checkmark-circle-outline',
+          title: '刷卡详情',
+          access: ['used_list']
+        },
+        component: () => import('@/view/stats/usedList.vue')
+      },
+      {
+        path: 'used_stats',
+        name: 'used_stats',
+        meta: {
+          icon: 'md-stats',
+          title: '刷卡统计',
+          access: ['used_stats']
+        },
+        component: () => import('@/view/stats/used.vue')
+      }
+    ]
+  },
+  {
     path: '/401',
     name: 'error_401',
     meta: {

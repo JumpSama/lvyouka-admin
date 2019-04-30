@@ -99,3 +99,19 @@ export const shopFilters = {
     return statusMap[status] ? statusMap[status] : {}
   }
 }
+
+export const statsFilters = {
+  recordTypeFilter (status) {
+    const statusMap = {
+      1: {
+        text: '开卡',
+        color: '#ff9900'
+      },
+      2: {
+        text: '续费',
+        color: '#19be6b'
+      }
+    }
+    return statusMap[status] ? statusMap[status] : {}
+  }
+}
