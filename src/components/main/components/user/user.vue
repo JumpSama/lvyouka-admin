@@ -27,7 +27,7 @@
 
 <script>
 import './user.less'
-import avatar from '@/assets/images/avatar.png'
+import avatar from '@/assets/images/avatar.jpg'
 import password from './password.vue'
 import { mapActions } from 'vuex'
 export default {
