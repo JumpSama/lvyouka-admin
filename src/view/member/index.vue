@@ -156,6 +156,16 @@ export default {
           key: 'number'
         },
         {
+          title: '推荐人ID',
+          key: 'recommend_user',
+          render: (h, params) => {
+            return h(
+              'p',
+              params.row.recommend_user > 0 ? params.row.recommend_user : '无'
+            )
+          }
+        },
+        {
           title: '操作',
           key: 'action',
           align: 'center',

@@ -208,6 +208,48 @@ export default [
     ]
   },
   {
+    path: '/distribution',
+    name: 'distribution',
+    meta: {
+      icon: 'ios-people',
+      title: '分销管理',
+      access: ['distribution', 'withdraw', 'withdraw_approve']
+    },
+    component: Main,
+    children: [
+      {
+        path: 'distribution_list',
+        name: 'distribution_list',
+        meta: {
+          icon: 'logo-buffer',
+          title: '分销',
+          access: ['distribution']
+        },
+        component: () => import('@/view/distribution/list.vue')
+      },
+      {
+        path: 'withdraw',
+        name: 'withdraw',
+        meta: {
+          icon: 'logo-usd',
+          title: '提现',
+          access: ['withdraw']
+        },
+        component: () => import('@/view/distribution/withdraw.vue')
+      },
+      {
+        path: 'withdraw_approve',
+        name: 'withdraw_approve',
+        meta: {
+          icon: 'md-checkmark-circle',
+          title: '提现审核',
+          access: ['withdraw_approve']
+        },
+        component: () => import('@/view/distribution/approve.vue')
+      }
+    ]
+  },
+  {
     path: '/stats',
     name: 'stats',
     meta: {

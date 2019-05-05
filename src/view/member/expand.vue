@@ -20,7 +20,7 @@
         </i-col>
         <i-col span="24" v-if="detail.identity_reverse">
           <label>身份证反面:</label>
-          <img class="card" @click="handleView(detail.identity_front)" :src="detail.identity_reverse">
+          <img class="card" @click="handleView(detail.identity_reverse)" :src="detail.identity_reverse">
         </i-col>
       </Row>
     </div>

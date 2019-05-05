@@ -115,3 +115,23 @@ export const statsFilters = {
     return statusMap[status] ? statusMap[status] : {}
   }
 }
+
+export const withdrawFilters = {
+  withdrawStatusFilter (status) {
+    const statusMap = {
+      0: {
+        text: '待审核',
+        color: '#ff9900'
+      },
+      1: {
+        text: '已提现',
+        color: '#19be6b'
+      },
+      2: {
+        text: '审核驳回',
+        color: '#a9a9a9'
+      }
+    }
+    return statusMap[status] ? statusMap[status] : {}
+  }
+}
