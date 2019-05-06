@@ -17,7 +17,7 @@
         <DatePicker :value="thisMonth" type="daterange" format="yyyy-MM-dd" size="large" @on-change="dateChange" split-panels placeholder="请选择时间范围"></DatePicker>
       </i-col>
       <Button type="primary" size="large" icon="ios-search" @click="searchHandle">搜索</Button>
-      <!-- <Button type="success" style="margin-left:10px;" size="large" icon="md-arrow-round-down" @click="exportHandle">导出</Button> -->
+      <Button type="success" style="margin-left:10px;" size="large" icon="md-arrow-round-down" @click="exportHandle">导出</Button>
     </Row>
     <br>
     <Table ref="tableInfo" stripe :columns="columns" :data="data"></Table>
