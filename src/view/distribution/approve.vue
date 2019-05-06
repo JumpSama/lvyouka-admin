@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { distribution, withdraw } from '@/api/distribution'
+import { withdraw } from '@/api/distribution'
 import { withdrawFilters } from '@/libs/filters'
 export default {
   filters: {

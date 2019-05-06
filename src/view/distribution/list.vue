@@ -11,8 +11,8 @@
     <Table stripe :columns="columns" :data="data"></Table>
     <br>
     <Page :total="page.total" :current.sync="page.current" show-total @on-change="pageChange"/>
-    <Modal title="查看图片" v-model="visible">
-      <img :src="qrcodeUrl" style="width: 100%">
+    <Modal title="分销二维码" v-model="visible" :ok-text="'下载'" @on-ok="download">
+      <img :src="qrcodeUrl" style="width: 100%;">
     </Modal>
   </div>
 </template>
@@ -23,6 +23,7 @@ export default {
   data () {
     return {
       qrcodeUrl: '',
+      qrcodeZip: '',
       visible: false,
       params: {
         offset: 0,
@@ -87,8 +88,12 @@ export default {
         if (d && d.code === 200) {
           this.visible = true
           this.qrcodeUrl = d.data.url
+          this.qrcodeZip = d.data.zip
         }
       })
+    },
+    download () {
+      window.open(this.qrcodeZip)
     }
   },
   watch: {

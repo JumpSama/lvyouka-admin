@@ -142,6 +142,7 @@ export default {
         const d = res.data
         if (d && d.code === 200) {
           this.$Message.success(d.msg)
+          this.getAmount()
           this.searchHandle()
         } else {
           this.$Message.error(d.msg)
